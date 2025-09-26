@@ -1,0 +1,11 @@
+amount,is_paid,name_student,student_id
+12000,FALSE,Nguyễn Văn A,1
+67000,FALSE,Nguyễn Văn B,2
+123000,FALSE,Nguyễn Văn C,3
+500000,TRUE,Nguyễn Văn D,4
+400000,FALSE,Nguyễn Văn E,5
+32000,TRUE,Nguyễn Văn F,6
+74000,TRUE,Nguyễn Văn G,7
+95000,TRUE,Nguyễn Văn H,8
+28000,TRUE,Nguyễn Văn I,9
+47000,FALSE,Nguyễn Văn J,10
