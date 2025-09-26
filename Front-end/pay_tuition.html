@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuition Payment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Tuition Payment</h1>
+
+        <h2>Customer Information</h2>
+        <p><strong>Full Name:</strong> <span id="customerName"></span></p>
+        <p><strong>Available Balance:</strong> <span id="customerBalance">0</span> đ</p>
+
+        <h2>Tuition Payment</h2>
+        <form id="studentSearchForm">
+            <label for="studentId">Student ID:</label>
+            <input type="number" id="studentId" required>
+            <button type="submit">Search Student</button>
+        </form>
+
+        <div id="tuitionInfo" style="display: none;">
+            <h2>Student Tuition Details</h2>
+            <p><strong>Name:</strong> <span id="studentName"></span></p>
+            <p><strong>Amount:</strong> <span id="tuitionAmount"></span> đ</p>
+            <p><strong>Paid Status:</strong> <span id="isPaid"></span></p>
+            <button onclick="requestOTP()">Pay Tuition</button>
+        </div>
+
+        <!-- OTP Popup -->
+        <div id="otpPopup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <h3>Enter OTP</h3>
+                <p>An OTP has been sent to your email. Please enter it below:</p>
+                <p>Time remaining: <span id="otpTimer">60</span> seconds</p>
+                <form id="otpForm">
+                    <label for="otpInput">OTP:</label>
+                    <input type="text" id="otpInput" required>
+                    <button type="submit">Verify OTP</button>
+                    <button type="button" onclick="closeOTPPopup()">Cancel</button>
+                </form>
+                <!-- Tùy chọn thêm -->
+                <button type="button" onclick="requestOTP()">Request New OTP</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
