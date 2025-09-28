@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
+    <!-- <div class="container">
         <h1>Login</h1>
         <form id="loginForm">
             <label for="username">Username:</label>
@@ -19,7 +19,70 @@
             <button type="submit">Login</button>
             <p id="error" style="color: red; display: none;">Invalid username or password</p>
         </form>
+    </div> -->
+
+    <div class="container">
+
+        <!-- Login header-->
+        <div class="login-header">
+            <h2>Welcome Back</h2>
+            <p>Sign in to your account</p>
+        </div>
+
+        <!-- Login form-->
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <span class="focus-border"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <button type="button" class="password-toggle" id="password-toggle" aria-label="Toggle password visibility">
+                        <span class="eye-icon"></span>
+                    </button>
+                    <span class="focus-border"></span>
+                </div>
+            </div>
+
+
+            <!-- Remember me-->
+            <div class="form-options">
+                    <label class="remember-wrapper">
+                        <input type="checkbox" id="remember" name="remember">
+                        <span class="checkbox-label">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Submit button-->
+            <button type="submit" class="login-btn btn">
+                <span class="btn-text">Sign in</span>
+                <span class="btn-loader"></span>
+            </button>
+
+            <div class="error-message" id="error">
+                <div class="error-icon">✓</div>
+                <h3>Login Fail!</h3>
+                <p>Invalid username or password</p>
+            </div>
+
+            <div class="success-message" id="success">
+                <div class="success-icon">✓</div>
+                <h3>Login Successful!</h3>
+                <p>Redirecting to your dashboard...</p>
+            </div>
+        </form>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
