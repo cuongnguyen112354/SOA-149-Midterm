@@ -56,33 +56,41 @@ window.onload = function() {
 document.getElementById('studentSearchForm')?.addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    const studentId = document.getElementById('studentId').value;
-    
+    const studentId = document.getElementById('studentId').value.trim();
+    if (!studentId) {
+        alert("Please enter a Student ID");
+        return;
+    }
+
     try {
-        // API call to search student
         const response = await fetch(`${endpoint}/student_id/${studentId}`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json' }
         });
-        
+
         const result = await response.json();
-        if (response.ok) {
-            // Display tuition data
-            const tuitionInfo = document.getElementById('tuitionInfo');
+        console.log("Fetched student:", result);
+
+        if (response.ok && result.name_student) {
+            // Update tuition info UI
             document.getElementById('studentName').textContent = result.name_student;
-            document.getElementById('tuitionAmount').textContent = result.amount;
-            document.getElementById('isPaid').textContent = result.is_paid ? 'Yes' : 'No';
-            tuitionInfo.style.display = 'block';
+            document.getElementById('tuitionAmount').textContent = result.amount.toLocaleString('vi-VN');
+            document.getElementById('isPaid').textContent = result.is_paid ? "Yes" : "No";
+
+            // Optional visual style
+            const statusElement = document.getElementById('isPaid');
+            statusElement.classList.remove("yes", "no");
+            statusElement.classList.add(result.is_paid ? "yes" : "no");
+
+            // Show the tuition section
+            document.getElementById('tuitionInfo').style.display = "block";
         } else {
-            alert('Student not found');
-            document.getElementById('tuitionInfo').style.display = 'none';
+            alert(result.detail || "Student not found");
+            document.getElementById('tuitionInfo').style.display = "none";
         }
     } catch (error) {
-        console.error('Search error:', error);
-        alert('Error searching for student');
-        document.getElementById('tuitionInfo').style.display = 'none';
+        console.error("Search error:", error);
+        alert("Something went wrong when searching for the student.");
     }
 });
 
