@@ -10,7 +10,9 @@
 body {
 	background: linear-gradient(90deg, #C7C5F4, #776BCC);		
 }
-
+.p {
+	font-size: 20px;
+}
 .container {
 	display: flex;
 	align-items: center;
