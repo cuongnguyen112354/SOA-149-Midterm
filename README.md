@@ -1,6 +1,3 @@
-Dưới đây là **phiên bản đã được chỉnh format chuẩn README.md** để bạn dán lên GitHub trực tiếp (bao gồm emoji, formatting, code-block, table, heading rõ ràng, chuẩn tài liệu kỹ thuật).
-
----
 
 # 🏦 CS504070 Midterm Project: iBanking Tuition Payment System
 
@@ -290,19 +287,3 @@ This project demonstrates:
 ## ⭐ If you like this project…
 
 Consider giving a ⭐ on GitHub!
-
----
-
-### ✅ Ready to Copy — Paste into README.md ✔️
-
-Nếu bạn muốn:
-
-* thêm **images** (ERD, UI)
-* thêm **badges (shields.io)**
-* format **table of contents**
-
-Chỉ cần nói:
-
-> *"Thêm TOC + Shield Badges cho README"*
-
-Mình sẽ update ngay 😎
