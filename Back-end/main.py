@@ -7,7 +7,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import time
 import threading
-import random
+import hashlib
 
 app = FastAPI()
 
@@ -45,6 +45,30 @@ def send_otp_email(email: str, otp: str):
         server.quit()
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to send OTP: {e}")
+
+def generate_unique_otp(customer_id: int):
+    max_attempts = 100  # Giới hạn số lần thử để tránh vòng lặp vô hạn
+    attempts = 0
+    timestamp = str(time.time())  # Lấy timestamp hiện tại dưới dạng chuỗi
+    
+    while attempts < max_attempts:
+        # Tạo chuỗi kết hợp từ customer_id và timestamp
+        combined_string = f"{customer_id}{timestamp}{attempts}".encode('utf-8')
+        
+        # Tạo mã băm bằng SHA-256
+        hash_object = hashlib.sha256(combined_string)
+        hash_value = hash_object.hexdigest()
+        
+        # Chuyển mã băm thành số 6 chữ số
+        otp = str(int(hash_value, 16) % 1000000).zfill(6)
+        
+        # Kiểm tra tính duy nhất
+        if otp not in [value["otp"] for value in otp_storage.values()]:
+            return otp
+        
+        attempts += 1
+    
+    raise Exception("Unable to generate unique OTP after multiple attempts")
     
 # Hàm dọn dẹp OTP hết hạn
 def cleanup_expired_otps():
@@ -165,8 +189,8 @@ async def request_otp(tuition_payment: TuitionPayment):
         if customer_record["available_balance"] < amount_due:
             raise HTTPException(status_code=400, detail="Insufficient balance")
         
-        # Generate unique OTP with only numbers (6 digits)
-        otp = generate_unique_otp()
+        # Generate unique OTP with customer_id
+        otp = generate_unique_otp(customer_record["customer_id"])
         otp_storage[f"{tuition_payment.username}_{tuition_payment.student_id}"] = {
             "otp": otp,
             "expires_at": time.time() + 60  # OTP expires in 60 seconds
@@ -181,17 +205,7 @@ async def request_otp(tuition_payment: TuitionPayment):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"OTP generation failed: {e}")
-
-def generate_unique_otp():
-    max_attempts = 100  # Giới hạn số lần thử để tránh vòng lặp vô hạn
-    attempts = 0
-    while attempts < max_attempts:
-        otp = str(random.randint(0, 999999)).zfill(6)
-        if otp not in [value["otp"] for value in otp_storage.values()]:
-            return otp
-        attempts += 1
-    raise Exception("Unable to generate unique OTP after multiple attempts")
-
+    
 @app.post("/pay_tuition/verify_otp")
 async def verify_otp(otp_verification: OTPVerification):
     if not supabase:
