@@ -75,7 +75,7 @@ document.getElementById('studentSearchForm')?.addEventListener('submit', async f
             // Update tuition info UI
             document.getElementById('studentName').textContent = result.name_student;
             document.getElementById('tuitionAmount').textContent = result.amount.toLocaleString('vi-VN');
-            document.getElementById('isPaid').textContent = result.is_paid ? "Yes" : "No";
+            document.getElementById('isPaid').textContent = result.is_paid ? "Paid" : "Unpaid";
 
             // Optional visual style
             const statusElement = document.getElementById('isPaid');
@@ -167,8 +167,14 @@ async function verifyOTP(event) {
             alert(result.message);
             customerData.available_balance = result.new_balance;
             localStorage.setItem('customerData', JSON.stringify(customerData));
+
             document.getElementById('customerBalance').textContent = customerData.available_balance;
-            document.getElementById('isPaid').textContent = 'Yes';
+            document.getElementById('isPaid').textContent = 'Paid';
+            
+            const statusElement = document.getElementById('isPaid');
+            statusElement.classList.remove("no");
+            statusElement.classList.add("yes");
+
             closeOTPPopup();
         } else {
             alert('Verification failed: ' + result.detail);
