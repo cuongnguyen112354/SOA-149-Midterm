@@ -280,7 +280,10 @@ This project demonstrates:
 
 ## 🙌 Author
 
-> *Feel free to add your name, class, student ID here.*
+> *Nguyen Huu Nhan – 522H0045
+Nguyen Khac Huy – 521H0502
+Nguyen Chi Cuong – 520H0451
+.*
 
 ---
 
